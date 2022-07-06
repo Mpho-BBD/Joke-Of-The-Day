@@ -7,7 +7,7 @@ CREATE TABLE Joke (
 
 CREATE TABLE JokeOfTheDay (
   jokeOfTheDayId INT UNSIGNED auto_increment NOT NULL,
-  dayDate dateTime NOT NULL,
+  dayDate DATE NOT NULL,
   jokeId INT UNSIGNED NOT NULL,
   CONSTRAINT JokeOfTheDay_PK PRIMARY KEY (jokeOfTheDayId)
 );

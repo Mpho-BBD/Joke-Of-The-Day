@@ -4,7 +4,7 @@ using JokeOfTheDay.Models;
 namespace JokeOfTheDay.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("joke/[controller]")]
     public class JokeController : ControllerBase
     {
         private readonly ILogger<JokeController> _logger;

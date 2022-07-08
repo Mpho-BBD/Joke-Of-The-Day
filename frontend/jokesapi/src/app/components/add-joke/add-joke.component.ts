@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { JokesService } from 'src/app/services/jokes.service';
 
 @Component({
   selector: 'add-joke',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddJokeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private jokeService: JokesService) { }
 
   ngOnInit(): void {
+  }
+
+  submit() {
+    const newJoke  = "";
+    this.jokeService.addJoke(newJoke)
   }
 
 }

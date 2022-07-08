@@ -1,32 +1,39 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CookieModule } from 'ngx-cookie';
 
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HomeComponent } from './components/home/home.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { JokeComponent } from './components/joke/joke.component';
-import { SessionComponent } from './page/session/session.component';
+import { HomeComponent } from './pages/home/home.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { SessionComponent } from './pages/session/session.component';
+
 import { AddJokeComponent } from './components/add-joke/add-joke.component';
 import { GetJokeComponent } from './components/get-joke/get-joke.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FofComponent } from './pages/fof/fof.component';
+import { CookieGuard } from './guards/cookie.guard';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     DashboardComponent,
-    JokeComponent,
     SessionComponent,
     AddJokeComponent,
-    GetJokeComponent
+    GetJokeComponent,
+    FofComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    HttpClientModule, //this cost 2.5 hours :(
+    CookieModule.withOptions(),
+    BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [CookieGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

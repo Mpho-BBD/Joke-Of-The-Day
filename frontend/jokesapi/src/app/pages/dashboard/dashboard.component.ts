@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CookieService, UIHint } from 'src/app/services/cookie.service';
+import { AppCookieService, UIHint } from 'src/app/services/cookie.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'page-dashboard',
@@ -9,7 +10,7 @@ import { CookieService, UIHint } from 'src/app/services/cookie.service';
 export class DashboardComponent implements OnInit {
   uiHint: UIHint = new UIHint();
 
-  constructor(private cookieService: CookieService) { }
+  constructor(private cookieService: AppCookieService, private loginService: LoginService) { }
 
   ngOnInit(): void {
     this.uiHint = this.cookieService.getUIHint()

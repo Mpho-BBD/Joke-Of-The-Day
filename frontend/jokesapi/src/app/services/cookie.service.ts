@@ -1,62 +1,48 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { LoginService } from './login.service';
+import { CookieService } from 'ngx-cookie';
+import { map, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CookieService {
+export class AppCookieService {
 
-  private _isValid: boolean = false;
-  private _uiHint: UIHint = new UIHint();
+  private uiC = "ui-cookie"
+  private sC = "session-cookie"
 
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService, private cookieService: CookieService, private httpClient: HttpClient) {
   }
 
   getUIHint() {
     if (environment.production) {
-      //cookie etc
-      return new UIHint();
-    } else if (environment.development)  {
-      //cookie etc
+      const uiCookie = this.cookieService.get(this.uiC)
+      if (uiCookie) {
+        const uiH = JSON.parse(uiCookie);
+        return (uiH as UIHint);
+      }
       return new UIHint();
     }
 
     return new UIHint(true, true);
   }
 
-  getSession() {
-    //cookie etc
-    return
+  getSession(): string {
+    return this.cookieService.get(this.sC) || ""
   }
 
-  interceptError(err: Error) : boolean {
-    //check 401 and 403
-    if (true) {
-      return true;
+  validate() {
+    const validateEndpoint = "/api/v1/validate"
+
+    if (environment.production) {
+      return this.httpClient.get(validateEndpoint, {responseType: "text"})
+    } else if (environment.development) {
+      return this.httpClient.get(environment.devURL + validateEndpoint, {responseType: "text"})
     }
 
-    this._isValid = false;
-    return false;
-  }
-
-  isValid() : boolean {
-    const validateObserve = {
-      next: () => {
-        this._isValid = true;
-        //cookie
-        //this._uiHint = uih;
-      },
-      error: (err: Error) => {
-        //TODO: check only the correct errors 401 or 403
-        this._isValid = false;
-        this._uiHint = new UIHint(false,false);
-        console.error(err)
-      },
-      complete: () => {}
-    }
-
-    this.loginService.validate().subscribe(validateObserve)
+    return of("OK");
   }
 }
 

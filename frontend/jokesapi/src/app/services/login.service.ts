@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,19 +9,6 @@ import { environment } from 'src/environments/environment';
 export class LoginService {
 
   constructor(private httpClient: HttpClient) { }
-
-  validate() {
-    const validateEndpoint = "/api/v1/validate"
-
-    if (environment.production) {
-      return this.httpClient.get(validateEndpoint, {responseType: "text"})
-    } else if (environment.development) {
-      return this.httpClient.get(environment.devURL + validateEndpoint, {responseType: "text"})
-    }
-
-    //cookies
-    return of("OK")
-  }
 
   gotoLogin() {
     const loginEndpoint = "/api/v1/login"

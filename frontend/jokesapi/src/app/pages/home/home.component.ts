@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import { JokesService } from "src/app/services/jokes.service";
+import { JokesService, JokeMachine } from "src/app/services/jokes.service";
 import { LoginService } from "src/app/services/login.service";
 
 @Component({
@@ -10,22 +10,12 @@ import { LoginService } from "src/app/services/login.service";
 })
 export class HomeComponent implements OnInit {
 
-  private dailyJoke: string = "Joke Loading..."
-  private jokeObserver = {
-    next: (joke: string) => {
-      this.dailyJoke = joke
-    },
-    error: (err: Error) => {
-      console.error(err)
-      this.dailyJoke = "The real joke is how broken this site is :D"
-    },
-    complete: () => {}
-  }
-
   constructor(private jokesService: JokesService, private loginService: LoginService, private router: Router, private route: ActivatedRoute) { }
 
+  dailyJoke: JokeMachine = new JokeMachine(this.jokesService);
+
   ngOnInit(): void {
-    this.jokesService.dailyJoke().subscribe(this.jokeObserver)
+    this.dailyJoke.setDaily();
   }
 
   gotoLogin(): void {

@@ -9,7 +9,7 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class SessionComponent implements OnInit {
 
-  private authToken: string | null = "";
+  authToken: string | null = "";
 
   constructor(private route: ActivatedRoute) { }
 

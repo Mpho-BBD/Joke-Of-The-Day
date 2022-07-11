@@ -1,4 +1,5 @@
 ﻿using JokeOfTheDay.Models;
+using JokeOfTheDay.Data;
 using System.Linq.Expressions;
 
 namespace JokeOfTheDay.Repositories
@@ -11,15 +12,20 @@ namespace JokeOfTheDay.Repositories
         {
             this.context = context;
         }
+
+        public IEnumerable<Joke> GetAll()
+        {
+            return context.Set<Joke>().ToList();
+        }
+
         public Joke getById(int JokeId)
         {
-            return context.Jokes.Find(JokeId);
+            return context.Set<Joke>().Find(JokeId);
         }
 
         public void createJoke(Joke joke)
         {
             this.context.Add(joke);
-            this.context.SaveChanges();
         }
     }
 }

@@ -1,32 +1,27 @@
 using Microsoft.AspNetCore.Mvc;
 using JokeOfTheDay.Models;
+using Microsoft.Extensions.Options;
+using JokeOfTheDay.Data;
 
 namespace JokeOfTheDay.Controllers
 {
     [ApiController]
-    [Route("joke/[controller]")]
+    [Route("[controller]")]
     public class JokeController : ControllerBase
     {
         private readonly ILogger<JokeController> _logger;
-        private readonly IConfigSettings _configSettings;
+        private readonly IOptions<DatabaseSettings> _databaseSettings;
 
-        public JokeController(ILogger<JokeController> logger, IConfigSettings configSettings)
+        public JokeController(ILogger<JokeController> logger, IOptions<DatabaseSettings> databaseSettings) 
         {
             _logger = logger;
-            _configSettings = configSettings;
+            _databaseSettings = databaseSettings;
         }
 
         [HttpGet(Name = "Joke")]
         public Joke Get()
         {
             return new Joke();
-        }
-
-        [HttpGet(Name = "GetWeatherForecast")]
-        public string GetSecret()
-        {
-            var result = "key 1 - " + _configSettings.Port + " : Key 2 - " + _configSettings.Username;
-            return result;
         }
     }
 }

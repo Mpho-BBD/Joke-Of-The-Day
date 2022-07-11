@@ -15,9 +15,10 @@ namespace JokeOfTheDay.Controllers
         }
 
         [HttpGet(Name = "Joke")]
-        public Joke Get()
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Joke))]
+        public IActionResult  Get()
         {
-            return new Joke();
+            return Ok(new Joke());
         }
     }
 }

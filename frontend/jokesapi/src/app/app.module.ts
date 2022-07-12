@@ -15,6 +15,7 @@ import { GetJokeComponent } from './components/get-joke/get-joke.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FofComponent } from './pages/fof/fof.component';
 import { CookieGuard } from './guards/cookie.guard';
+import { LoggedoutComponent } from './pages/loggedout/loggedout.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CookieGuard } from './guards/cookie.guard';
     SessionComponent,
     AddJokeComponent,
     GetJokeComponent,
-    FofComponent
+    FofComponent,
+    LoggedoutComponent
   ],
   imports: [
     BrowserModule,

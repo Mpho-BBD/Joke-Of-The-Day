@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-fof',
-  templateUrl: './fof.component.html',
-  styleUrls: ['./fof.component.css']
+  selector: 'page-loggedout',
+  templateUrl: './loggedout.component.html',
+  styleUrls: ['./loggedout.component.css']
 })
-export class FofComponent implements OnInit {
+export class LoggedoutComponent implements OnInit {
 
   constructor(private router: Router) { }
 

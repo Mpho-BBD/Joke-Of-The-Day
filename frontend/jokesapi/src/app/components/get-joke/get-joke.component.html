@@ -1,6 +1,6 @@
 <section>
-  <h2>{{currentJoke.currentJoke}}</h2>
+  <h2 class="joke">{{currentJoke.currentJoke}}</h2>
 
-  <button (click)="jokeClick()">Get Joke!</button>
+  <button class="random-button" (click)="jokeRandomClick()">Get Random Joke!</button>
+  <button class="daily-button" (click)="jokeDailyClick()">Get Joke of the Day!</button>
 </section>
-

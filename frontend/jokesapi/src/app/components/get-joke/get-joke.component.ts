@@ -16,8 +16,12 @@ export class GetJokeComponent implements OnInit {
     this.currentJoke.currentJoke = "Click for Funny™"
   }
 
-  jokeClick() {
+  jokeRandomClick() {
     this.currentJoke.setRandomJoke();
+  }
+
+  jokeDailyClick() {
+    this.currentJoke.setDaily();
   }
 
 }

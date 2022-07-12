@@ -18,7 +18,7 @@ namespace JokeOfTheDay.Data
             this.configuration = configuration;
         }
 
-        protected override void onConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (optionsBuilder.IsConfigured)
             {

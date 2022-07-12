@@ -16,4 +16,7 @@ export class DashboardComponent implements OnInit {
     this.uiHint = this.cookieService.getUIHint()
   }
 
+  gotoLogout(): void {
+    this.loginService.gotoLogout();
+  }
 }

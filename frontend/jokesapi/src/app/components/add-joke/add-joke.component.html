@@ -1,6 +1,8 @@
-<form>
-  <input type="text">
-  <input type="button" (click)="submit()" value="Add Joke">
-  <input type="checkbox" value="isMature" id="chbMature" name="Mature">
-  <label for="chbMature">Mature</label>
+<form [formGroup]="addJokeForm" (ngSubmit)="onSubmit()">
+  <input type="text" formControlName="joke">
+  <button class="button-7" type="submit">Add Joke</button>
+  <label>
+    <input type="checkbox" name="isMature"  [(ngModel)]="isMature" [ngModelOptions]="{standalone: true}">
+    Mature
+  </label>
 </form>

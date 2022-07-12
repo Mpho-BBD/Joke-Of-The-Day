@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieModule } from 'ngx-cookie';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -34,6 +35,8 @@ import { LoggedoutComponent } from './pages/loggedout/loggedout.component';
     HttpClientModule, //this cost 2.5 hours :(
     CookieModule.withOptions(),
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [CookieGuard],
   bootstrap: [AppComponent]

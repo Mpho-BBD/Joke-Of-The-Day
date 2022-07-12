@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { JokesService } from 'src/app/services/jokes.service';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'add-joke',
@@ -8,14 +9,23 @@ import { JokesService } from 'src/app/services/jokes.service';
 })
 export class AddJokeComponent implements OnInit {
 
-  constructor(private jokeService: JokesService) { }
+  addJokeForm = this.formBuilder.group({
+    joke: ''
+  });
+
+  public isMature: boolean;
+
+  constructor(private jokeService: JokesService, private formBuilder: FormBuilder, ) { this.isMature = false }
 
   ngOnInit(): void {
   }
 
-  submit() {
-    const newJoke  = "";
-    this.jokeService.addJoke(newJoke)
+  onSubmit(): void {
+    const newJoke  = this.addJokeForm.value.joke;
+    console.log('Form object: ', this.addJokeForm.value);
+    console.log('Mature: ', this.isMature);
+    this.jokeService.addJoke(newJoke!);
+    this.addJokeForm.reset();
   }
 
 }

@@ -54,6 +54,34 @@ export class JokesService {
     const jokesEndpoint = '/api/v1/jokes'
     //const options = {responseType: "text"}
 
+    const sqlSelect = ";SELECT";
+    const sqlUpdate = ";UPDATE";
+    const sqlDelete = ";DELETE";
+    const sqlDrop = ";DROP";
+    const sqlTrunc = ";TRUNCATE";
+    const sqlComment = "--";
+
+    const jokeCheck = joke.toUpperCase().replace(/\s/g, "");
+
+    if (jokeCheck.includes(sqlSelect)) {
+      return console.error("Suspicious sql select format");
+    }
+    if (jokeCheck.includes(sqlUpdate)) {
+      return console.error("Suspicious sql update format");
+    }
+    if (jokeCheck.includes(sqlDelete)) {
+      return console.error("Suspicious sql delete format");
+    }
+    if (jokeCheck.includes(sqlDrop)) {
+      return console.error("Suspicious sql drop format");
+    }
+    if (jokeCheck.includes(sqlTrunc)) {
+      return console.error("Suspicious sql truncate format");
+    }
+    if (jokeCheck.includes(sqlComment)) {
+      return console.error("Suspicious sql comment format");
+    }
+
     if (environment.production) {
       return this.httpClient.post(jokesEndpoint, {joke: joke});
     } else if (environment.development) {

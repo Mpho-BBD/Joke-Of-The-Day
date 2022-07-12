@@ -2,6 +2,23 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.4.
 
+## Endpoints
+
+### home
+
+Displays the Joke of the day and allows a user to log in.
+
+### dashboard
+
+Allows a logged in user to post a joke if they have admin privileges.
+
+### loggedout
+
+Displays when a user has logged out
+### 404
+
+Default page for endpoints that do not exist.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

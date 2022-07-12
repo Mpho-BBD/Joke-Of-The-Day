@@ -14,22 +14,10 @@ namespace JokeOfTheDay.Controllers
         private Joke _joke;
         public Joke Joke => _joke;
 
-        private readonly ILogger<JokeController> _logger;
-        private readonly IOptions<DatabaseSettings> _databaseSettings;
         private readonly IJokeService jokeService;
-
-        public JokeController(ILogger<JokeController> logger, IOptions<DatabaseSettings> databaseSettings, IJokeService jokeService) 
+        public JokeController(IJokeService jokeService) 
         {
-            _logger = logger;
-            _databaseSettings = databaseSettings;
             this.jokeService = jokeService;
-        }
-
-        [HttpGet("settings")]
-        public IActionResult GetSettings()
-        {
-            var settings = _databaseSettings.Value;
-            return Ok(settings);
         }
 
         [HttpGet("GetJoke/{id}")]

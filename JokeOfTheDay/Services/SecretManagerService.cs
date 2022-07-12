@@ -13,10 +13,8 @@ namespace JokeOfTheDay.Services
         private readonly SecretsManagerCache cache;
         public SecretManagerService()
         {
-
             this.secretsManager = new AmazonSecretsManagerClient(RegionEndpoint.USEast1);
             this.cache = new SecretsManagerCache(this.secretsManager);
-
         }
 
         public DbSecretModel getDatabaseCredential(string secretID)

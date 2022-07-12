@@ -31,6 +31,7 @@ app.Run();
 
 void ConfigureServices(IServiceCollection services)
 {
+    services.AddSingleton<ISingletonSecretManagerService, SecretManagerService>();
     services.AddScoped<IJokeRepository, JokeRepository>();
     services.AddScoped<IJokeService, JokeService>();
 

@@ -55,10 +55,14 @@ namespace JokeOfTheDay.Controllers
             {
                 return NotFound();
             }
+            var dJoke = context.Find<Joke_of_the_day>(date.Date);
+            if (dJoke == null)
+            {
+                return NotFound();
+            }
 
-            return new ObjectResult(context.Find<Joke_of_the_day>(date.Date));
+            return new ObjectResult(dJoke);
         }
-
 
 
         [HttpPost("CreateJoke")]

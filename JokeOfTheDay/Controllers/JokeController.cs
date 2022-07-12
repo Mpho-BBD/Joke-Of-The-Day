@@ -60,8 +60,12 @@ namespace JokeOfTheDay.Controllers
             {
                 return NotFound();
             }
-
-            return new ObjectResult(dJoke);
+            JokeDTO JokeObject = this.jokeService.FindJokeById(dJoke.JokeID);
+            if (JokeObject == null)
+            {
+                return NotFound();
+            }
+            return new ObjectResult(JokeObject);
         }
 
 

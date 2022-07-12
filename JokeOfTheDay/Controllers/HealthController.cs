@@ -15,7 +15,7 @@ namespace JokeOfTheDay.Controllers
 
         [HttpGet(Name = "Health")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult Get()
+        public IActionResult GetHealth()
         {
             return Ok();
         }

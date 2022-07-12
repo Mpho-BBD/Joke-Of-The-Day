@@ -18,6 +18,10 @@ namespace JokeOfTheDay.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Joke))]
         public IActionResult  Get()
         {
+            string? session;
+            if (HttpContext.Request.Cookies.TryGetValue(Globals.sessionCookieIdentifier, out session)) {
+                _logger.LogInformation(session);
+            }
             return Ok(new Joke());
         }
     }

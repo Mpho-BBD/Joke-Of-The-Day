@@ -10,29 +10,31 @@ export class LoginService {
 
   constructor(private httpClient: HttpClient) { }
 
+  //TODO: but dev urls in env
+
   gotoLogin() {
-    const loginEndpoint = "/api/v1/login"
+    const loginEndpoint = "/login"
+
+    console.log(environment)
 
     if (environment.production) {
-      //Problably router instead
       window.location.href = loginEndpoint
     } else if (environment.development) {
       window.location.href = environment.devURL + loginEndpoint
+    } else {
+      window.location.href = "https://jokesapi.auth.eu-west-1.amazoncognito.com/oauth2/authorize?client_id=632uqqj15rj2j2u3mhm38qook2&response_type=code&redirect_uri=http://localhost:4200"
     }
-
-    window.location.href = "https://jokesapi.auth.eu-west-1.amazoncognito.com/oauth2/authorize?client_id=632uqqj15rj2j2u3mhm38qook2&response_type=code&scope=email+jokesapi%2Fjoke.read+jokesapi%2Fjoke.write+openid&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2Fsession"
   }
 
   gotoLogout() {
     const logoutEndpoint = "/logout"
 
     if (environment.production) {
-      //Problably router instead
       window.location.href = logoutEndpoint
     } else if (environment.development) {
       window.location.href = environment.devURL + logoutEndpoint
+    } else {
+      window.location.href = "https://jokesapi.auth.eu-west-1.amazoncognito.com/logout?client_id=632uqqj15rj2j2u3mhm38qook2&logout_uri=http://localhost:4200/loggedout";
     }
-
-    window.location.href = "https://jokesapi.auth.eu-west-1.amazoncognito.com/logout?client_id=632uqqj15rj2j2u3mhm38qook2&logout_uri=http://localhost:4200/loggedout";
   }
 }

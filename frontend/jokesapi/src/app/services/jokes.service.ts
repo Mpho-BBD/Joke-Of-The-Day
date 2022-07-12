@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpStatusCode } from '@angular/common/http';
 import { of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -25,7 +25,7 @@ export class JokesService {
   }
 
   getRandomJoke() {
-    const dailyJokesEndpoint = '/api/v1/jokes/daily'
+    const dailyJokesEndpoint = '/api/v1/jokes'
     //const options = {responseType: "text"}
 
     if (environment.production) {
@@ -34,25 +34,12 @@ export class JokesService {
       return this.httpClient.get(environment.devURL + dailyJokesEndpoint, {responseType: "text"});
     }
 
-    return of("Bad Jokes Only!")
-  }
-
-  getJoke(id: number) {
-    const jokesEndpoint = '/api/v1/jokes'
-    //const options = {responseType: "text"}
-
-    if (environment.production) {
-      return this.httpClient.get(jokesEndpoint, {responseType: "text"});
-    } else if (environment.development) {
-      return this.httpClient.get(environment.devURL + jokesEndpoint, {responseType: "text"});
-    }
-
     return of("Random Bad Joke!")
   }
 
-  addJoke(joke: string) {
+  addJoke(joke: JokeRequest) {
+    //TODO: return consistent
     const jokesEndpoint = '/api/v1/jokes'
-    //const options = {responseType: "text"}
 
     const sqlSelect = ";SELECT";
     const sqlUpdate = ";UPDATE";
@@ -61,7 +48,7 @@ export class JokesService {
     const sqlTrunc = ";TRUNCATE";
     const sqlComment = "--";
 
-    const jokeCheck = joke.toUpperCase().replace(/\s/g, "");
+    const jokeCheck = joke.Content.toUpperCase().replace(/\s/g, "");
 
     if (jokeCheck.includes(sqlSelect)) {
       return console.error("Suspicious sql select format");
@@ -83,19 +70,29 @@ export class JokesService {
     }
 
     if (environment.production) {
-      return this.httpClient.post(jokesEndpoint, {joke: joke});
+      return this.httpClient.post(jokesEndpoint, joke);
     } else if (environment.development) {
-      return this.httpClient.post(environment.devURL + jokesEndpoint, {joke: joke});
+      return this.httpClient.post(environment.devURL + jokesEndpoint, joke);
     }
 
     return of("Success")
   }
 }
 
-export class Joke {
+export class JokeResponse {
   Id: number = 0
   Content: string = ""
   Mature: boolean = false
+}
+
+export class JokeRequest {
+  Content: string = ""
+  Mature: boolean = false
+
+  constructor(content: string, mature: boolean) {
+    this.Content = content,
+    this.Mature = mature
+  }
 }
 
 export class JokeMachine {
@@ -107,6 +104,21 @@ export class JokeMachine {
     },
     error: (err: Error) => {
       //401 403
+      if (err instanceof HttpErrorResponse) {
+         switch (err.status) {
+          case HttpStatusCode.NotFound:
+            this.currentJoke = 'The only thing funny here is how broken this site is :D';
+            break;
+
+          case HttpStatusCode.Unauthorized:
+          case HttpStatusCode.Forbidden:
+            this.currentJoke = 'The only thing funny here is how few permissions you have'
+            break;
+
+          default:
+            break;
+         }
+      }
       console.error(err);
     },
     complete: () => {}
@@ -119,11 +131,7 @@ export class JokeMachine {
     this.jokeService.dailyJoke().subscribe(this.jokeObserve)
   }
 
-  setNewJoke(id: number) {
-    this.jokeService.getJoke(id).subscribe(this.jokeObserve)
-  }
-
   setRandomJoke() {
-    this.jokeService.getJoke(-1).subscribe(this.jokeObserve)
+    this.jokeService.getRandomJoke().subscribe(this.jokeObserve)
   }
 }

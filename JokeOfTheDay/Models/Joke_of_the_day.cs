@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace JokeOfTheDay.Models
 {
-    public class JokeOfTheDay
+    public class Joke_of_the_day
     {
         public int Id { get; set; }
         [DataType(DataType.Date)]

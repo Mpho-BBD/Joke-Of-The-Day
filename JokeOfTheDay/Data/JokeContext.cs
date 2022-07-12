@@ -10,7 +10,7 @@ namespace JokeOfTheDay.Data
         private IConfiguration configuration;
 
         public DbSet<Joke> Jokes { get; set; }
-        public DbSet<Models.JokeOfTheDay> JokesOfTheDay { get; set; }
+        public DbSet<Models.Joke_of_the_day> JokesOfTheDay { get; set; }
 
         public JokeContext(ISingletonSecretManagerService secretManagerService, IConfiguration configuration)
         {

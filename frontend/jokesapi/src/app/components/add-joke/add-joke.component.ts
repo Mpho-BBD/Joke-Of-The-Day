@@ -1,5 +1,5 @@
 import { Component, OnInit, NgModule } from '@angular/core';
-import { JokesService } from 'src/app/services/jokes.service';
+import { JokeRequest, JokeResponse, JokesService } from 'src/app/services/jokes.service';
 import { FormBuilder } from '@angular/forms';
 
 @Component({
@@ -21,10 +21,10 @@ export class AddJokeComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const newJoke  = this.addJokeForm.value.joke;
-    console.log('Form object: ', this.addJokeForm.value);
-    console.log('Mature: ', this.isMature);
-    this.jokeService.addJoke(newJoke!);
+    const newJoke  = this.addJokeForm.value.joke!;
+    //console.log('Form object: ', this.addJokeForm.value);
+    const joke = new JokeRequest(newJoke, this.isMature)
+    this.jokeService.addJoke(joke);
     this.addJokeForm.reset();
   }
 

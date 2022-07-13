@@ -55,10 +55,10 @@ App Features:
  ### Authentication Diagram
   <img src="Auth.jpg" alt="Auth_diagram" width="1000" height="300">
 
-### Running the the 
+### Running the Application:
 
 <!-- FRONTEND -->
-## Frontend
+# Frontend
 The frontend setup for local building and running requires Anguler CLI to be installed.
 
 Install globally using
@@ -82,7 +82,10 @@ The daily joke is displayed on the Home page. When logged in, a random joke can 
 When logged in as an administrator a new joke can be added in the text box.
 
  <!-- BACKEND -->
- ## Backend
+ # Backend
+The backend setup for local building and running requires C# to be installed. The easiest way to run the backend is through Visual Studio. To open the backend in Visual Studio simple clone the git repository to your local machine and cd into the JokeOfTheDay folder, double click on the JokeOfTheDay.csproj and it will open in Visual Studio. From there the application can be run, which will automatically open a localhost webpage with swagger on. The endpoints can then be interacted with through swagger. 
+
+## How the backend was setup
 
  <!-- AWS Secrets Manager DESCRIPTION -->
 ## How the authentication works:

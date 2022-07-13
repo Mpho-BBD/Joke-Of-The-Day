@@ -26,7 +26,7 @@ export class AppCookieService {
       return new UIHint();
     }
 
-    return new UIHint(true, true);
+    return new UIHint(true, true, true);
   }
 
   getSession(): string {
@@ -47,11 +47,13 @@ export class AppCookieService {
 }
 
 export class UIHint {
-  isAdmin: boolean = false
-  isMature: boolean = false
+  canWriteJoke = false;
+  canReadJoke = false;
+  isMature = false;
 
-  constructor(isAdmin: boolean = false, isMature: boolean = false) {
-    this.isAdmin = isAdmin;
+  constructor(canWriteJoke: boolean = false, canReadJoke: boolean = false, isMature: boolean = false) {
+    this.canWriteJoke = canWriteJoke;
+    this.canReadJoke = canReadJoke;
     this.isMature = isMature;
   }
 }

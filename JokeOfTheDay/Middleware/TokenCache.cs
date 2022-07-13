@@ -61,16 +61,20 @@ namespace JokeOfTheDay.Middleware
                 tokens.Add(newKey.ToString(), new Token(id_token, access_token, refresh_token, token_type));
 
                 return newKey.ToString();
+            } else {
+                Console.WriteLine(response.Content);
+                Console.WriteLine(response.ErrorMessage);
             }
             return null;
         }
 
         public static string ValidateToken(string key)
         {
+            Console.WriteLine("Val");
             if (tokens.ContainsKey(key))
             {
-                Token token = tokens["key"];
-
+                Token token = tokens[key]; //46m
+                Console.WriteLine("Contains");
                 return token.hasNotExpired() ? token.access_token : String.Empty;
             }
 

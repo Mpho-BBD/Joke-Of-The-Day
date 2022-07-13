@@ -13,10 +13,24 @@ builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+builder.Services.AddAuthentication(authOpts => {
+    authOpts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    authOpts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
     {
         options.TokenValidationParameters = TokenValidation.GetCognitoTokenValidationParams();
+        options.Events = new JwtBearerEvents() {
+            OnAuthenticationFailed = c => {
+                Console.WriteLine(c.Exception);
+                return Task.CompletedTask;
+            },
+            OnForbidden = c => {
+                Console.WriteLine("aaa");
+                Console.WriteLine(c.ToString());
+                Console.WriteLine(c.Principal.Claims);
+                return Task.CompletedTask;
+            },
+        };
     });
 
 builder.Services.AddSwaggerGen();
@@ -32,8 +46,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
-app.UseAuthorization();
 app.UseTokenAttachmentMiddleware();
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 app.Run();
 

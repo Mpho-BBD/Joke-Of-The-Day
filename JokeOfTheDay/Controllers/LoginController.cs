@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JokeOfTheDay.Controllers
 {
+    [AllowAnonymous]
     [ApiController]
     [Route("")]
     public class LoginController : ControllerBase
@@ -20,7 +22,7 @@ namespace JokeOfTheDay.Controllers
             _logger.LogInformation("Login requested");
             return Redirect("https://jokesapi.auth.eu-west-1.amazoncognito.com/oauth2/authorize?client_id=632uqqj15rj2j2u3mhm38qook2&response_type=code&scope=email+jokesapi%2Fjoke.read+jokesapi%2Fjoke.write+openid&redirect_uri=https://jokesapi.verbenablom.co.za/api/v1/session");
         }
-
+        
         [HttpGet("logout")]
         [ProducesResponseType(StatusCodes.Status302Found)]
         public IActionResult logout()

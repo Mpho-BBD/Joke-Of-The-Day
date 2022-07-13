@@ -48,7 +48,9 @@ namespace JokeOfTheDay.Services
                 {
                     client_id = jObject["client_id"].ToObject<string>(),
                     client_secret = jObject["client_secret"].ToObject<string>(),
-                    redirect_url = jObject["redirect_url"].ToObject<string>()
+                    redirect_url = jObject["redirect_url"].ToObject<string>(),
+                    auth_domain = jObject["auth_domain"].ToObject<string>(),
+                    user_pool_id = jObject["user_pool_id"].ToObject<string>()
                 };
             }
             catch (Exception ex)

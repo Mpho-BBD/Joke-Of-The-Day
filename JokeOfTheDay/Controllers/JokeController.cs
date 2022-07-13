@@ -55,12 +55,12 @@ namespace JokeOfTheDay.Controllers
             {
                 return NotFound();
             }
-            var dJoke = context.Find<Joke_of_the_day>(date.Date);
+            var dJoke = context.JokesOfTheDay.Where(x=> x.Date== date.Date);
             if (dJoke == null)
             {
                 return NotFound();
             }
-            JokeDTO JokeObject = this.jokeService.FindJokeById(dJoke.JokeID);
+            JokeDTO JokeObject = this.jokeService.FindJokeById(dJoke.First().JokeID);
             if (JokeObject == null)
             {
                 return NotFound();

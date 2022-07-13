@@ -24,16 +24,15 @@ builder.Services.AddAuthentication(authOpts => {
                 Console.WriteLine(c.Exception);
                 return Task.CompletedTask;
             },
-            OnForbidden = c => {
-                Console.WriteLine("aaa");
-                Console.WriteLine(c.ToString());
-                Console.WriteLine(c.Principal.Claims);
-                return Task.CompletedTask;
-            },
         };
     });
 
 builder.Services.AddSwaggerGen();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Founders", policy =>
+                      policy.RequireClaim("EmployeeNumber", "1", "2", "3", "4", "5"));
+});
 ConfigureServices(builder.Services);
 
 var app = builder.Build();

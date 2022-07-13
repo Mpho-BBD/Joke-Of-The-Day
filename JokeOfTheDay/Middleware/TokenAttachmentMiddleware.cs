@@ -14,12 +14,10 @@ public class TokenAttachmentMiddleware
     public async Task InvokeAsync(HttpContext context)
     {
         var path = context.Request.Path.Value;
-        Console.WriteLine("auth");
         if (path != null && !path.Split("/").Contains("session"))
         {
             var cookie = new CookieService().GetSession(context.Request);
             string access = TokenCache.ValidateToken(cookie);
-            Console.WriteLine(access + "notempty");
             context.Request.Headers["Authorization"] = "Bearer " + access ?? String.Empty;
         }else
         {
@@ -48,14 +46,12 @@ public class TokenAttachmentMiddleware
                 
 
                 var tok = TokenCache.ValidateToken(uuid);
-                Console.WriteLine(tok);
                 context.Request.Headers["Authorization"] = "Bearer " + tok;
                 new CookieService().SetSessionCookie(context.Response, uuid);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                Console.WriteLine("TAM");
                 context.Response.StatusCode = 401;
                 await context.Response.WriteAsync("Failed to create new session");
                 return;

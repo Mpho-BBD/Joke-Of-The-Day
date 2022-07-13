@@ -24,12 +24,13 @@ namespace JokeOfTheDay.Repositories
             this.context.SaveChanges();
         }
 
-        public Joke getRandomJoke()
+        public Joke getRandomJoke(bool isMature)
         {   
             Random rand = new Random();
-            int toSkip = rand.Next(1, context.Joke.Count());
+            var filteredJokes = context.Joke.Where(j => isMature || !j.inappropriate);
+            int toSkip = rand.Next(1, filteredJokes.Count());
             
-            return this.context.Joke.Skip(toSkip).Take(1).First();
+            return filteredJokes.Skip(toSkip).Take(1).First();
         }
 
         public Joke getDailyJoke()
@@ -40,7 +41,7 @@ namespace JokeOfTheDay.Repositories
             {
                 var newDailyJoke = new JokeOfTheDayM();
                 newDailyJoke.dayDate = Today;
-                var randJoke = getRandomJoke();
+                var randJoke = getRandomJoke(false);
                 newDailyJoke.jokeId = randJoke.jokeId;
                 context.Add(newDailyJoke);
                 return randJoke;

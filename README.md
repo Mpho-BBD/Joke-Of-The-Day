@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <img src="constants/images/logo.jpg" alt="Logo" width="250" height="250">
+  <img src="logo.jpg" alt="Logo" width="250" height="250">
 
 <h3 align="center">Joke Of The Day</h3>
 
@@ -34,8 +34,7 @@ App Features:
 * [Secrets Manager](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-6.0&tabs=windows)
 * [AWS Cognito](https://aws.amazon.com/cognito/)
 * [oAuth 2.0](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow)
-*[MariaDB](https://mariadb.com/kb/en/documentation/)
-*
+* [MariaDB](https://mariadb.com/kb/en/documentation/)
 
 ### Cloud Instance
 
@@ -54,7 +53,7 @@ App Features:
  ```
 
  ### Authentication Diagram
-  <img src="constants/images/Auth.jpg" alt="Auth_diagram" width="1000" height="300">
+  <img src="Auth.jpg" alt="Auth_diagram" width="1000" height="300">
 
 ### Running the the 
 
@@ -119,7 +118,7 @@ If you wish to test out the code and run the DB instance, please follow the inst
 - [ ] [Conrad Vos](https://github.com/ConradBBD)
 - [ ] [Mpho Futjane](https://github.com/Mpho-BBD)
 - [ ] [Nikita Smal](https://github.com/nikitasmal)
-- [ ] [Phumlani Ntini]()
+- [ ] [Phumlani Ntini](https://github.com/2280727)
 - [ ] [Pieter Kok](https://github.com/pieter-c-kok)
 - [ ] [Wessel Scholtz](https://github.com/WesselBBD)
 

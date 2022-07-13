@@ -3,6 +3,8 @@ using JokeOfTheDay.Repositories;
 using JokeOfTheDay.Services;
 using FluentValidation.AspNetCore;
 using JokeOfTheDay.Domain.Validation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using JokeOfTheDay.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,12 @@ builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = TokenValidation.GetCognitoTokenValidationParams();
+    });
+
 builder.Services.AddSwaggerGen();
 ConfigureServices(builder.Services);
 
@@ -25,6 +33,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseRouting();
 app.UseAuthorization();
+app.UseTokenAttachmentMiddleware();
 app.MapControllers();
 app.Run();
 

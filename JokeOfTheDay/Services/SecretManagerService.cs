@@ -37,5 +37,24 @@ namespace JokeOfTheDay.Services
             }
 
         }
+
+        public AppSecretModel getAppSecrets(string secretID)
+        {
+            try
+            {
+                var response = this.cache.GetSecretString(secretID).Result;
+                JObject jObject = JObject.Parse(response);
+                return new AppSecretModel
+                {
+                    client_id = jObject["client_id"].ToObject<string>(),
+                    client_secret = jObject["client_secret"].ToObject<string>(),
+                    redirect_url = jObject["redirect_url"].ToObject<string>()
+                };
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

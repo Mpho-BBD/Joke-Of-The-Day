@@ -17,9 +17,9 @@ namespace JokeOfTheDay.Services
 
         public CookieService() {}
 
-        public void SetSessionCookie(HttpResponse response) {
+        public void SetSessionCookie(HttpResponse response, string session_cookie) {
             response.Cookies.Delete(sessionCookieIdentifier);
-            response.Cookies.Append(sessionCookieIdentifier, "1941446516515315665", mainCookieOptions);
+            response.Cookies.Append(sessionCookieIdentifier, session_cookie, mainCookieOptions);
         }
 
         public void SetUiCookie(HttpResponse response, UiHint hint) {

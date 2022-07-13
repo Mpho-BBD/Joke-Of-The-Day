@@ -23,7 +23,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
@@ -34,12 +33,14 @@ void ConfigureServices(IServiceCollection services)
     services.AddSingleton<ISingletonSecretManagerService, SecretManagerService>();
     services.AddScoped<IJokeRepository, JokeRepository>();
     services.AddScoped<IJokeService, JokeService>();
+    services.AddScoped<ICookieService, CookieService>();
 
     services.AddDbContext<JokeContext>();
     services.AddAutoMapper(typeof(Program).Assembly);
     services.AddMvc();
     services.AddControllers().AddNewtonsoftJson();
     services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<JokeDTOValidator>());
+    services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<JokeOfTheDayDTOValidator>());
 
     services.AddControllers();
 }

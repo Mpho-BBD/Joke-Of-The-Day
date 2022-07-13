@@ -10,7 +10,7 @@ namespace JokeOfTheDay.Domain.Validation
         public JokeDTOValidator()
         {
             RuleFor(p => p.Content).NotEmpty();
-            RuleFor(p => p.InappInappropriate).NotEmpty();
+            RuleFor(p => p.Inappropriate).NotEmpty();
         }
     }
 }

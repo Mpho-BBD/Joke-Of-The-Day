@@ -8,39 +8,58 @@ using JokeOfTheDay.Domain.Models;
 namespace JokeOfTheDay.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("/api/v1/jokes")]
     public class JokeController : ControllerBase
     {
-        private Joke _joke;
-        public Joke Joke => _joke;
-
-        private readonly IJokeService jokeService;
-        public JokeController(IJokeService jokeService) 
+        private readonly IJokeService _jokeService;
+        private readonly ILogger<JokeController> _logger;
+        public JokeController(IJokeService jokeService, ILogger<JokeController> logger) 
         {
-            this.jokeService = jokeService;
+            this._jokeService = jokeService;
+            this._logger = logger;
         }
 
-        [HttpGet("GetJoke/{id}")]
-        public async Task<IActionResult> GetJoke(int id)
+        [HttpGet("daily")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(JokeDTO))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetDailyJoke()
         {
-            JokeDTO JokeObject = this.jokeService.FindJokeById(id);
+            _logger.LogInformation("Daily joke request");
+            JokeDTO JokeObject = this._jokeService.GetDailyJoke();
             if(JokeObject == null)
             {
                 return NotFound();
             }
-            return new ObjectResult(JokeObject);
+            return new OkObjectResult(JokeObject);
         }
 
-        [HttpPost("CreateJoke")]
+        [HttpGet("")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(JokeDTO))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetRandomJoke()
+        {
+            _logger.LogInformation("Random joke request from {}", "x");
+            JokeDTO JokeObject = this._jokeService.GetRandomJoke();
+            if(JokeObject == null)
+            {
+                return NotFound();
+            }
+            return new OkObjectResult(JokeObject);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(JokeDTO))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateJoke([FromBody] JokeDTO JokeDTO)
         {
             try
             {
-                this.jokeService.CreateJoke(JokeDTO);
+                this._jokeService.CreateJoke(JokeDTO);
                 return new ObjectResult("Created Joke");
             }
             catch(ArgumentException ex)
             {
+                _logger.LogError(ex.ToString());
                 return BadRequest();
             }
         }

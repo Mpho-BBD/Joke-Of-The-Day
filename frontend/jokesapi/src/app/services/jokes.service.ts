@@ -73,7 +73,7 @@ export class JokesService {
       return this.httpClient.post(environment.devURL + jokesEndpoint, joke);
     }
 
-    return of(new JokeResponse("Success"))
+    return of("Created Joke")
   }
 }
 

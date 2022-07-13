@@ -17,6 +17,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FofComponent } from './pages/fof/fof.component';
 import { CookieGuard } from './guards/cookie.guard';
 import { LoggedoutComponent } from './pages/loggedout/loggedout.component';
+import { LoginButtonComponent } from './components/login-button/login-button.component';
+import { LogoutButtonComponent } from './components/logout-button/logout-button.component';
+import { HomeButtonComponent } from './components/home-button/home-button.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { LoggedoutComponent } from './pages/loggedout/loggedout.component';
     AddJokeComponent,
     GetJokeComponent,
     FofComponent,
-    LoggedoutComponent
+    LoggedoutComponent,
+    LoginButtonComponent,
+    LogoutButtonComponent,
+    HomeButtonComponent
   ],
   imports: [
     BrowserModule,

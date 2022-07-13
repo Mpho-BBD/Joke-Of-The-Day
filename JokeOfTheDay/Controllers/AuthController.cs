@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using JokeOfTheDay.Services;
 using JokeOfTheDay.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JokeOfTheDay.Controllers
 {
@@ -17,6 +18,7 @@ namespace JokeOfTheDay.Controllers
             _cookieService = cookieService;
         }
 
+        [Authorize]
         [HttpGet("validate")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -34,7 +36,7 @@ namespace JokeOfTheDay.Controllers
             return Unauthorized();
         }
 
-
+        [Authorize]
         [HttpGet("session")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

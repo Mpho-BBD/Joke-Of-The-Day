@@ -31,6 +31,22 @@ public class TokenAttachmentMiddleware
                 if (uuid == null)
                     throw new InvalidDataException("Failed dependancy");
 
+
+
+                try
+                {
+                    if (!(uuid.Length == 37))
+                    {
+                        throw new ArgumentException("Do not have permission");
+                    }
+                }
+                catch (Exception) {
+                    context.Response.StatusCode = 401;
+                    await context.Response.WriteAsync("Do not have permission");
+                    return;
+                }
+                
+
                 var tok = TokenCache.ValidateToken(uuid);
                 Console.WriteLine(tok);
                 context.Request.Headers["Authorization"] = "Bearer " + tok;

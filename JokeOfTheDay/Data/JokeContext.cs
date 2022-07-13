@@ -44,9 +44,9 @@ namespace JokeOfTheDay.Data
                 var secretID = configuration.GetSection("DatabaseSecretID").Value.ToString();
                 DbSecretModel secretModel = this.secretManagerService.getDatabaseCredential(secretID);
                 return $"Server='{secretModel.Url}';" +
-                    $" Port='{secretModel.Port}';" +
-                    $" User Id='{secretModel.Username}'; " +
-                    $"Password='{secretModel.Password}';";
+                        $" Database=jokesdb;" +
+                        $" User Id='{secretModel.Username}'; " +
+                        $"Password='{secretModel.Password}';";
             }
             else
             {

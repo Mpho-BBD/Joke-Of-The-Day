@@ -4,28 +4,24 @@ using System.Linq.Expressions;
 
 namespace JokeOfTheDay.Repositories
 {
-    public class JokeRepository
+    public class JokeRepository : IJokeRepository
     {
-        private readonly JokeContext context;
+        private JokeContext context;
 
         public JokeRepository(JokeContext context)
         {
             this.context = context;
         }
 
-        public IEnumerable<Joke> GetAll()
+        public Joke getJokeById(int JokeId)
         {
-            return context.Set<Joke>().ToList();
+            return this.context.Find<Joke>(JokeId);
         }
 
-        public Joke getById(int JokeId)
+        public void createJoke(Joke _joke)
         {
-            return context.Set<Joke>().Find(JokeId);
-        }
-
-        public void createJoke(Joke joke)
-        {
-            this.context.Add(joke);
+            this.context.Add(_joke);
+            this.context.SaveChanges();
         }
     }
 }

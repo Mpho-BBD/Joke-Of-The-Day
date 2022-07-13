@@ -3,10 +3,9 @@ using System.Collections.Generic;
 
 namespace JokeOfTheDay.Repositories
 {
-    interface IJokeRepository
+    public interface IJokeRepository
     {
-        IEnumerable<Joke> GetAll();
         Joke getJokeById(int JokeId);
-        void createJoke(Joke joke);
+        void createJoke(Joke _joke);
     }
 }

@@ -37,9 +37,9 @@ namespace JokeOfTheDay.Middleware
                     ValidateIssuerSigningKey = true,
                     ValidateIssuer = true,
                     ValidateLifetime = true,
-                    ValidAudience = cognitoAudience,
+                    //ValidAudience = cognitoAudience, //not checking ID Token
                     ValidateAudience = false,
-                    //RoleClaimType = "cognito:groups"
+                    RoleClaimType = "cognito:groups",
             };
         }
     }

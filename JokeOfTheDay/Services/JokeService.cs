@@ -18,14 +18,26 @@ namespace JokeOfTheDay.Services
 
         public JokeDTO FindJokeById(int JokeId)
         {
-            var JokeInstance = this.jokeRepository.getJokeById(JokeId);
+            Joke JokeInstance = this.jokeRepository.getJokeById(JokeId);
             return mapper.Map<JokeDTO>(JokeInstance);
         }
 
         public void CreateJoke(JokeDTO JokeDTO)
         {
-            var Joke = mapper.Map<Joke>(JokeDTO);
+            Joke Joke = mapper.Map<Joke>(JokeDTO);
             this.jokeRepository.createJoke(Joke);
+        }
+
+        public JokeDTO GetRandomJoke()
+        {
+            Joke JokeInstance = this.jokeRepository.getRandomJoke();
+            return mapper.Map<JokeDTO>(JokeInstance);
+        }
+
+        public JokeDTO GetDailyJoke()
+        {
+            Joke JokeInstance = this.jokeRepository.getDailyJoke();
+            return mapper.Map<JokeDTO>(JokeInstance);
         }
     }
 }

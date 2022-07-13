@@ -6,6 +6,8 @@ namespace JokeOfTheDay.Services
     {
         JokeDTO FindJokeById(int JokeId);
 
-        void CreateJoke(JokeDTO Joke);
+        void CreateJoke(JokeDTO JokeDTO);
+        JokeDTO GetRandomJoke();
+        JokeDTO GetDailyJoke();
     }
 }

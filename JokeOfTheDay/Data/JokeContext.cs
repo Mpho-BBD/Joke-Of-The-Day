@@ -1,7 +1,6 @@
 ﻿using JokeOfTheDay.Models;
 using JokeOfTheDay.Services;
 using Microsoft.EntityFrameworkCore;
-
 namespace JokeOfTheDay.Data
 {
     public class JokeContext : DbContext
@@ -9,8 +8,8 @@ namespace JokeOfTheDay.Data
         private ISingletonSecretManagerService secretManagerService;
         private IConfiguration configuration;
 
-        public DbSet<Joke> Jokes { get; set; }
-        public DbSet<Models.JokeOfTheDay> JokesOfTheDay { get; set; }
+        public DbSet<Joke> Joke { get; set; }
+        public DbSet<JokeOfTheDayM> JokeOfTheDay { get; set; }
 
         public JokeContext(ISingletonSecretManagerService secretManagerService, IConfiguration configuration)
         {
@@ -27,7 +26,8 @@ namespace JokeOfTheDay.Data
             else
             {
                 string connectionString = getConnectionString();
-                optionsBuilder.UseSqlServer(connectionString);
+                Console.WriteLine(connectionString);
+                optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
                 base.OnConfiguring(optionsBuilder);
             }
         }
@@ -42,11 +42,13 @@ namespace JokeOfTheDay.Data
             else if (configuration.GetSection("DatabaseSecretID").Exists())
             {
                 var secretID = configuration.GetSection("DatabaseSecretID").Value.ToString();
-                DbSecretModel secretModel = this.secretManagerService.getDatabaseCredential(secretID);
-                return $"Server='{secretModel.Url}';" +
-                        $" Database=jokesdb;" +
-                        $" User Id='{secretModel.Username}'; " +
-                        $"Password='{secretModel.Password}';";
+                Models.DbSecretModel secretModel = this.secretManagerService.getDatabaseCredential(secretID);
+                return $"Server='{secretModel.Url}'; " +
+                        $"Port={secretModel.Port}; " +
+                        $"Database=jokesdb; " +
+                        $"Uid='{secretModel.Username}'; " +
+                        $"Pwd='{secretModel.Password}'; " +
+                        $"SslMode=Preferred; ";
             }
             else
             {

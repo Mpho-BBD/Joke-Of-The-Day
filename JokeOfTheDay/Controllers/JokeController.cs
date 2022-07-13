@@ -8,7 +8,7 @@ using JokeOfTheDay.Domain.Models;
 namespace JokeOfTheDay.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("/api/v1/jokes")]
     public class JokeController : ControllerBase
     {
         private Joke _joke;
@@ -20,18 +20,30 @@ namespace JokeOfTheDay.Controllers
             this.jokeService = jokeService;
         }
 
-        [HttpGet("GetJoke/{id}")]
-        public async Task<IActionResult> GetJoke(int id)
+        [HttpGet("daily")]
+        public async Task<IActionResult> GetDailyJoke()
         {
-            JokeDTO JokeObject = this.jokeService.FindJokeById(id);
+            JokeDTO JokeObject = this.jokeService.GetDailyJoke();
             if(JokeObject == null)
             {
                 return NotFound();
             }
-            return new ObjectResult(JokeObject);
+            return new OkObjectResult(JokeObject);
         }
 
-        [HttpPost("CreateJoke")]
+        [HttpGet("")]
+        public async Task<IActionResult> GetRandomJoke()
+        {
+            
+            JokeDTO JokeObject = this.jokeService.GetRandomJoke();
+            if(JokeObject == null)
+            {
+                return NotFound();
+            }
+            return new OkObjectResult(JokeObject);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> CreateJoke([FromBody] JokeDTO JokeDTO)
         {
             try

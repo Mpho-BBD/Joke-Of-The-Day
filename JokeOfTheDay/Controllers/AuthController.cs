@@ -31,14 +31,14 @@ namespace JokeOfTheDay.Controllers
 
             if (true)
             {
-                return Ok();   
+                return Ok("OK");
             }
             return Unauthorized();
         }
 
         [Authorize]
         [HttpGet("session")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status302Found)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public IActionResult Session(string code)
@@ -47,7 +47,7 @@ namespace JokeOfTheDay.Controllers
             UiHint hint = new UiHint();
             hint.setState();
             _cookieService.SetUiCookie(HttpContext.Response, hint);
-            return Ok();
+            return Redirect("/dashboard");
         }
     }
 }

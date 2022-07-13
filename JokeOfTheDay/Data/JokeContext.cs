@@ -17,6 +17,8 @@ namespace JokeOfTheDay.Data
             this.configuration = configuration;
         }
 
+        //TODO: OnModelCreating for cool relationship binding 
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (optionsBuilder.IsConfigured)

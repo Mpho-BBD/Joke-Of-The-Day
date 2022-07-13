@@ -11,13 +11,12 @@ namespace JokeOfTheDay.Controllers
     [Route("/api/v1/jokes")]
     public class JokeController : ControllerBase
     {
-        private Joke _joke;
-        public Joke Joke => _joke;
-
-        private readonly IJokeService jokeService;
-        public JokeController(IJokeService jokeService) 
+        private readonly IJokeService _jokeService;
+        private readonly ILogger<JokeController> _logger;
+        public JokeController(IJokeService jokeService, ILogger<JokeController> logger) 
         {
-            this.jokeService = jokeService;
+            this._jokeService = jokeService;
+            this._logger = logger;
         }
 
         [HttpGet("daily")]
@@ -25,7 +24,8 @@ namespace JokeOfTheDay.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetDailyJoke()
         {
-            JokeDTO JokeObject = this.jokeService.GetDailyJoke();
+            _logger.LogInformation("Daily joke request");
+            JokeDTO JokeObject = this._jokeService.GetDailyJoke();
             if(JokeObject == null)
             {
                 return NotFound();
@@ -38,8 +38,8 @@ namespace JokeOfTheDay.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetRandomJoke()
         {
-            
-            JokeDTO JokeObject = this.jokeService.GetRandomJoke();
+            _logger.LogInformation("Random joke request from {}", "x");
+            JokeDTO JokeObject = this._jokeService.GetRandomJoke();
             if(JokeObject == null)
             {
                 return NotFound();
@@ -52,20 +52,14 @@ namespace JokeOfTheDay.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateJoke([FromBody] JokeDTO JokeDTO)
         {
-            //WHEN AUTH IS READY
-            string? session;
-            if (HttpContext.Request.Cookies.TryGetValue(Globals.sessionCookieIdentifier, out session)) {
-
-            }
-            //------------------
-
             try
             {
-                this.jokeService.CreateJoke(JokeDTO);
+                this._jokeService.CreateJoke(JokeDTO);
                 return new ObjectResult("Created Joke");
             }
             catch(ArgumentException ex)
             {
+                _logger.LogError(ex.ToString());
                 return BadRequest();
             }
         }

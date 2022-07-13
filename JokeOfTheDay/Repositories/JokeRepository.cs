@@ -45,7 +45,7 @@ namespace JokeOfTheDay.Repositories
                 context.Add(newDailyJoke);
                 return randJoke;
             }
-            return dailyJoke.Joke;
+            return getJokeById(dailyJoke.jokeId); //dailyJoke.Joke (after data relationship is set up)
         }
 
 

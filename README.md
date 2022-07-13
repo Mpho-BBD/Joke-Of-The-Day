@@ -55,8 +55,6 @@ App Features:
  ### Authentication Diagram
   <img src="Auth.jpg" alt="Auth_diagram" width="1000" height="300">
 
-### Running the Application:
-
 <!-- FRONTEND -->
 # Frontend
 The frontend setup for local building and running requires Anguler CLI to be installed.
@@ -114,6 +112,9 @@ If you wish to test out the code and run the DB instance, please follow the inst
 
 * Node.js which includes Node Package Manager.
 * C# ASP.NET Core 6.0
+
+### Running the Application:
+...
 
 <!-- MEET THE TEAM -->
 ## Development Team

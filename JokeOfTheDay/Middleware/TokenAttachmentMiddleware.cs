@@ -16,35 +16,29 @@ public class TokenAttachmentMiddleware
         var path = context.Request.Path.Value;
         if (path != null && !path.Split("/").Contains("session"))
         {
-            var cookie = new CookieService().GetSession(context.Request);
+            var cookie = new CookieService().GetSessionCookie(context.Request);
             string access = TokenCache.ValidateToken(cookie);
             context.Request.Headers["Authorization"] = "Bearer " + access ?? String.Empty;
         }else
         {
             try
-            {
-                var code = context.Request.Query["code"];
-                string uuid = TokenCache.AddNewToken(code);
-
-                if (uuid == null)
-                    throw new InvalidDataException("Failed dependancy");
-
-
+            {    
+                string code = context.Request.Query["code"];
 
                 try
-                {
-                    if (!(uuid.Length == 37))
-                    {
-                        throw new ArgumentException("Do not have permission");
-                    }
+                {                    
+                    if (code is null) throw new InvalidDataException("Code Query parameter is required");
+
+                    if (!(code.Length == 36)) throw new ArgumentException("Code is wrong length");
                 }
-                catch (Exception) {
-                    context.Response.StatusCode = 401;
-                    await context.Response.WriteAsync("Do not have permission");
+                catch (Exception e) {
+                    Console.WriteLine(e.ToString());
+                    context.Response.StatusCode = 400;
+                    await context.Response.WriteAsync("Bad Request");
                     return;
                 }
-                
 
+                string uuid = TokenCache.AddNewToken(code);
                 var tok = TokenCache.ValidateToken(uuid);
                 context.Request.Headers["Authorization"] = "Bearer " + tok;
                 new CookieService().SetSessionCookie(context.Response, uuid);

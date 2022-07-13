@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using JokeOfTheDay.Middleware;
+using JokeOfTheDay.Services;
 using Microsoft.AspNetCore.Authorization;
 
 namespace JokeOfTheDay.Controllers
@@ -9,10 +11,12 @@ namespace JokeOfTheDay.Controllers
     public class LoginController : ControllerBase
     {
         private readonly ILogger<LoginController> _logger;
+        private readonly ICookieService _cookieService;
 
-        public LoginController(ILogger<LoginController> logger)
+        public LoginController(ILogger<LoginController> logger,  ICookieService cookieService)
         {
             _logger = logger;
+            _cookieService = cookieService;
         }
 
         [HttpGet("login")]
@@ -28,6 +32,7 @@ namespace JokeOfTheDay.Controllers
         public IActionResult logout()
         {
             _logger.LogInformation("Logout requested");
+            TokenCache.RemoveToken(_cookieService.GetSessionCookie(HttpContext.Request));
             return Redirect("https://jokesapi.auth.eu-west-1.amazoncognito.com/logout?client_id=632uqqj15rj2j2u3mhm38qook2&logout_uri=https://jokesapi.verbenablom.co.za/loggedout");
         }
     }

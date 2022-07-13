@@ -1,8 +1,8 @@
 <h1>Joke of the Day!</h1>
 
-<add-joke *ngIf="uiHint.isAdmin"></add-joke>
+<add-joke *ngIf="uiHint.canWriteJoke"></add-joke>
 
-<get-joke></get-joke>
+<get-joke *ngIf="uiHint.canReadJoke"></get-joke>
 
 <div class="container">
   <button class="logout-button" (click)="gotoLogout()">Logout</button>

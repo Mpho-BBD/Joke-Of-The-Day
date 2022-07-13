@@ -26,7 +26,6 @@ namespace JokeOfTheDay.Data
             else
             {
                 string connectionString = getConnectionString();
-                Console.WriteLine(connectionString);
                 optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
                 base.OnConfiguring(optionsBuilder);
             }

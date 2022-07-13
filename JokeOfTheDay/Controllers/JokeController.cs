@@ -21,6 +21,8 @@ namespace JokeOfTheDay.Controllers
         }
 
         [HttpGet("daily")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(JokeDTO))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetDailyJoke()
         {
             JokeDTO JokeObject = this.jokeService.GetDailyJoke();
@@ -32,6 +34,8 @@ namespace JokeOfTheDay.Controllers
         }
 
         [HttpGet("")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(JokeDTO))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetRandomJoke()
         {
             
@@ -44,8 +48,17 @@ namespace JokeOfTheDay.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(JokeDTO))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateJoke([FromBody] JokeDTO JokeDTO)
         {
+            //WHEN AUTH IS READY
+            string? session;
+            if (HttpContext.Request.Cookies.TryGetValue(Globals.sessionCookieIdentifier, out session)) {
+
+            }
+            //------------------
+
             try
             {
                 this.jokeService.CreateJoke(JokeDTO);

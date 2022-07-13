@@ -7,7 +7,7 @@ namespace JokeOfTheDay.Repositories
     {
         Joke getJokeById(int JokeId);
         void createJoke(Joke _joke);
-        Joke getRandomJoke();
+        Joke getRandomJoke(bool isMature);
         Joke getDailyJoke();
     }
 }

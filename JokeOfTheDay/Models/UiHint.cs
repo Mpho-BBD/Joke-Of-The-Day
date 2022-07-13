@@ -5,8 +5,8 @@ namespace JokeOfTheDay.Models
     public class UiHint
     {
         public bool canWriteJoke {get; set;}
-        public bool canReadJoke {get;set;}
-        public bool isMature {get;set;}
+        public bool canReadJoke {get; set;}
+        public bool isMature {get; set;}
 
         public UiHint() {
             canWriteJoke = false;
@@ -14,10 +14,10 @@ namespace JokeOfTheDay.Models
             isMature = false;
         }
 
-        public void setState() {
-            canWriteJoke = true;
-            canReadJoke = true;
-            isMature = true;
+        public void setState(HttpContext ctx) {
+            canWriteJoke = ctx.User.IsInRole("Admin");
+            isMature = ctx.User.IsInRole("DirtyJoker");
+            canReadJoke = canWriteJoke || isMature;
         }
 
         public string toJson() {

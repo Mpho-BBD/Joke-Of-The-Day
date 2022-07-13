@@ -7,7 +7,7 @@ namespace JokeOfTheDay.Services
         JokeDTO FindJokeById(int JokeId);
 
         void CreateJoke(JokeDTO JokeDTO);
-        JokeDTO GetRandomJoke();
+        JokeDTO GetRandomJoke(bool isMature);
         JokeDTO GetDailyJoke();
     }
 }

@@ -6,5 +6,6 @@ namespace JokeOfTheDay.Services
     {
         void SetSessionCookie(HttpResponse response, string session_cookie);
         void SetUiCookie(HttpResponse response, UiHint hint);
+        string GetSessionCookie(HttpRequest request);
     }
 }

@@ -78,5 +78,10 @@ namespace JokeOfTheDay.Middleware
 
             return String.Empty;
         }
+
+        public static bool RemoveToken(string key)
+        {
+            return tokens.Remove(key);
+        }
     }
 }

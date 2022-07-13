@@ -27,12 +27,12 @@ namespace JokeOfTheDay.Services
             response.Cookies.Append(uiCookieIdentifier, hint.toJson(), mainCookieOptions);
         }
 
-        public string GetSession(HttpRequest request) {
+        public string GetSessionCookie(HttpRequest request) {
             string? session;
             if (request.Cookies.TryGetValue(sessionCookieIdentifier, out session)) {
                 return session;
             }
-            return "";
+            return String.Empty;
         }
     }
 }

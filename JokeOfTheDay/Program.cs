@@ -30,8 +30,8 @@ builder.Services.AddAuthentication(authOpts => {
 builder.Services.AddSwaggerGen();
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("Founders", policy =>
-                      policy.RequireClaim("EmployeeNumber", "1", "2", "3", "4", "5"));
+    options.AddPolicy("Admins", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("Mature", policy => policy.RequireClaim("DirtyJoker"));
 });
 ConfigureServices(builder.Services);
 

@@ -9,5 +9,6 @@ namespace JokeOfTheDay.Models
         public string? redirect_url { get; set; }
         public string? client_secret { get; set; }
         public string? user_pool_id { get; set; }
+        public string? auth_domain { get; set; }
     }
 }

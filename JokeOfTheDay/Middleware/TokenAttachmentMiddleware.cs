@@ -14,13 +14,13 @@ public class TokenAttachmentMiddleware
     public async Task InvokeAsync(HttpContext context)
     {
         var path = context.Request.Path.Value;
-
-        if (path != null && path.Split("/").Contains("session"))
+        Console.WriteLine("auth");
+        if (path != null && !path.Split("/").Contains("session"))
         {
             var cookie = new CookieService().GetSession(context.Request);
             string access = TokenCache.ValidateToken(cookie);
-
-            context.Request.Headers["Authorization"] = access ?? String.Empty;
+            Console.WriteLine(access + "notempty");
+            context.Request.Headers["Authorization"] = "Bearer " + access ?? String.Empty;
         }else
         {
             try
@@ -31,11 +31,15 @@ public class TokenAttachmentMiddleware
                 if (uuid == null)
                     throw new InvalidDataException("Failed dependancy");
 
-                context.Request.Headers["Authorization"] = TokenCache.ValidateToken(uuid);
+                var tok = TokenCache.ValidateToken(uuid);
+                Console.WriteLine(tok);
+                context.Request.Headers["Authorization"] = "Bearer " + tok;
                 new CookieService().SetSessionCookie(context.Response, uuid);
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.ToString());
+                Console.WriteLine("TAM");
                 context.Response.StatusCode = 401;
                 await context.Response.WriteAsync("Failed to create new session");
                 return;

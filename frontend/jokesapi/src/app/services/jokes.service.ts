@@ -13,28 +13,26 @@ export class JokesService {
 
   dailyJoke() {
     const dailyJokesEndpoint = '/api/v1/jokes/daily'
-    //const options = {responseType: "text"}
 
     if (environment.production) {
-      return this.httpClient.get(dailyJokesEndpoint, {responseType: "text"});
+      return this.httpClient.get<JokeResponse>(dailyJokesEndpoint);
     } else if (environment.development) {
-      return this.httpClient.get(environment.devURL + dailyJokesEndpoint, {responseType: "text"});
+      return this.httpClient.get<JokeResponse>(environment.devURL + dailyJokesEndpoint);
     }
 
-    return of("Bad Jokes Only!")
+    return of(new JokeResponse("Bad Jokes Only!"))
   }
 
   getRandomJoke() {
     const dailyJokesEndpoint = '/api/v1/jokes'
-    //const options = {responseType: "text"}
 
     if (environment.production) {
-      return this.httpClient.get(dailyJokesEndpoint, {responseType: "text"});
+      return this.httpClient.get<JokeResponse>(dailyJokesEndpoint);
     } else if (environment.development) {
-      return this.httpClient.get(environment.devURL + dailyJokesEndpoint, {responseType: "text"});
+      return this.httpClient.get<JokeResponse>(environment.devURL + dailyJokesEndpoint);
     }
 
-    return of("Random Bad Joke!")
+    return of(new JokeResponse("Random Bad Joke!"))
   }
 
   addJoke(joke: JokeRequest) {
@@ -48,7 +46,7 @@ export class JokesService {
     const sqlTrunc = ";TRUNCATE";
     const sqlComment = "--";
 
-    const jokeCheck = joke.Content.toUpperCase().replace(/\s/g, "");
+    const jokeCheck = joke.content.toUpperCase().replace(/\s/g, "");
 
     if (jokeCheck.includes(sqlSelect)) {
       return console.error("Suspicious sql select format");
@@ -75,23 +73,27 @@ export class JokesService {
       return this.httpClient.post(environment.devURL + jokesEndpoint, joke);
     }
 
-    return of("Success")
+    return of(new JokeResponse("Success"))
   }
 }
 
 export class JokeResponse {
-  Id: number = 0
-  Content: string = ""
-  Mature: boolean = false
+  id: number = 0
+  content: string = ""
+  mature: boolean = false
+
+  constructor(joke: string) {
+    this.content = joke;
+  }
 }
 
 export class JokeRequest {
-  Content: string = ""
-  Mature: boolean = false
+  content: string = ""
+  mature: boolean = false
 
   constructor(content: string, mature: boolean) {
-    this.Content = content,
-    this.Mature = mature
+    this.content = content,
+    this.mature = mature
   }
 }
 
@@ -99,8 +101,8 @@ export class JokeMachine {
   public currentJoke: string = ""
 
   private jokeObserve = {
-    next: (joke: string) => {
-      this.currentJoke = joke;
+    next: (joke: JokeResponse) => {
+      this.currentJoke = joke.content;
     },
     error: (err: Error) => {
       //401 403

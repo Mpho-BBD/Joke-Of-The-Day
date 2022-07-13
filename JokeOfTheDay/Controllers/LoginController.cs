@@ -18,7 +18,7 @@ namespace JokeOfTheDay.Controllers
         public IActionResult login()
         {
             _logger.LogInformation("Login requested");
-            return Redirect("https://jokesapi.auth.eu-west-1.amazoncognito.com/oauth2/authorize?client_id=632uqqj15rj2j2u3mhm38qook2&response_type=code&scope=email+jokesapi%2Fjoke.read+jokesapi%2Fjoke.write+openid&redirect_uri=https://jokesapi.verbennablom.co.za/api/v1/session");
+            return Redirect("https://jokesapi.auth.eu-west-1.amazoncognito.com/oauth2/authorize?client_id=632uqqj15rj2j2u3mhm38qook2&response_type=code&scope=email+jokesapi%2Fjoke.read+jokesapi%2Fjoke.write+openid&redirect_uri=https://jokesapi.verbenablom.co.za/api/v1/session");
         }
 
         [HttpGet("logout")]
@@ -26,7 +26,7 @@ namespace JokeOfTheDay.Controllers
         public IActionResult logout()
         {
             _logger.LogInformation("Logout requested");
-            return Redirect("https://jokesapi.auth.eu-west-1.amazoncognito.com/logout?client_id=632uqqj15rj2j2u3mhm38qook2&logout_uri=https://jokesapi.verbennablom.co.za/loggedout");
+            return Redirect("https://jokesapi.auth.eu-west-1.amazoncognito.com/logout?client_id=632uqqj15rj2j2u3mhm38qook2&logout_uri=https://jokesapi.verbenablom.co.za/loggedout");
         }
     }
 }

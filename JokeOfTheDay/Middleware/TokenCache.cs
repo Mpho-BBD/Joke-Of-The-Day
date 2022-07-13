@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using JokeOfTheDay.Services;
+using RestSharp;
 using System.Text.Json.Nodes;
 
 namespace JokeOfTheDay.Middleware
@@ -36,14 +37,15 @@ namespace JokeOfTheDay.Middleware
         public static string? AddNewToken(string token)
         {
             var client = new RestClient();
+            Models.AppSecretModel secrets = new SecretManagerService().getAppSecrets("AppSecret");
             var request = new RestRequest("https://jokesapi.auth.eu-west-1.amazoncognito.com/oauth2/token/", Method.Post);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
             request.AddParameter("grant_type", "authorization_code");
             request.AddParameter("code", token);
-            request.AddParameter("client_id", "632uqqj15rj2j2u3mhm38qook2");
+            request.AddParameter("client_id", secrets.client_id);
             request.AddParameter("redirect_uri", "http://localhost:4200/session");
             request.AddParameter("scope", "openid");
-            request.AddParameter("client_secret", "3to23lqutaa5gte956qoki8mtjdte1n3s98f5f6gvl68htb0i58");
+            request.AddParameter("client_secret", secrets.client_secret);
             RestResponse response = client.Execute(request);
 
             if (response.IsSuccessful)

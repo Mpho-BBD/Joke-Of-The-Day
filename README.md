@@ -84,10 +84,13 @@ When logged in as an administrator a new joke can be added in the text box.
 The backend setup for local building and running requires C# to be installed. The easiest way to run the backend is through Visual Studio. To open the backend in Visual Studio simple clone the git repository to your local machine and cd into the JokeOfTheDay folder, double click on the JokeOfTheDay.csproj and it will open in Visual Studio. From there the application can be run, which will automatically open a localhost webpage with swagger on. The endpoints can then be interacted with through swagger. 
 
 ## How the backend was setup
+For the backend the repository pattern was used. Thus, there are models, services, and repositories that communicate with the database and controller to be able to deliver the output that is being asked for.
+
+The database credentials are stores in AWS Secret Manager which is connected to the backend through a SecretManagerService that provides the SecretId, from which the credentials needed to connect to the database can be accessed. Once the database is accessed the Controller can use the services, data transfer objects (DTO's) of the Joke and repositories to communicate with the database. The Controller talks to the Services and the Services talk to the Repository in the form of DTO's to prevent the data being tampered with. Users can either get a joke from the database or create a joke in the database.
 
  <!-- AWS Secrets Manager DESCRIPTION -->
 ## How the authentication works:
- AWS Secrets Manager was used to store private creditentials such as database username and password. The backend which was implented in C# then connected to AWS Secrets Manager using a caching module in order to obtain the creditentials that were needed.
+AWS Secrets Manager was used to store private creditentials such as database username and password. The backend which was implented in C# then connected to AWS Secrets Manager using a caching module in order to obtain the creditentials that were needed.
 
  <!-- AUTH DESCRIPTION -->
 ## How the authentication works:

@@ -70,11 +70,9 @@ namespace JokeOfTheDay.Middleware
 
         public static string ValidateToken(string key)
         {
-            Console.WriteLine("Val");
             if (tokens.ContainsKey(key))
             {
                 Token token = tokens[key]; //46m
-                Console.WriteLine("Contains");
                 return token.hasNotExpired() ? token.access_token : String.Empty;
             }
 

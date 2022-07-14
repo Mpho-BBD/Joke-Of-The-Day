@@ -19,6 +19,12 @@ Displays when a user has logged out
 
 Default page for endpoints that do not exist.
 
+## Dev Mode
+
+When you do `ng serve` the frontend will launch in dev mode. You can navigate to any endpoint without out needing to login.
+
+# Angular Doc
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

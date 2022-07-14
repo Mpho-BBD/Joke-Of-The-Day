@@ -3,6 +3,8 @@ using JokeOfTheDay.Repositories;
 using JokeOfTheDay.Services;
 using FluentValidation.AspNetCore;
 using JokeOfTheDay.Domain.Validation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using JokeOfTheDay.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +13,26 @@ builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddAuthentication(authOpts => {
+    authOpts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    authOpts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = TokenValidation.GetCognitoTokenValidationParams();
+        options.Events = new JwtBearerEvents() {
+            OnAuthenticationFailed = c => {
+                Console.WriteLine(c.Exception);
+                return Task.CompletedTask;
+            },
+        };
+    });
+
 builder.Services.AddSwaggerGen();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admins", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("Mature", policy => policy.RequireClaim("DirtyJoker"));
+});
 ConfigureServices(builder.Services);
 
 var app = builder.Build();
@@ -24,6 +45,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
+app.UseTokenAttachmentMiddleware();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

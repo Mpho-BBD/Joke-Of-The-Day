@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using JokeOfTheDay.Data;
 using JokeOfTheDay.Services;
 using JokeOfTheDay.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JokeOfTheDay.Controllers
 {
@@ -33,13 +34,15 @@ namespace JokeOfTheDay.Controllers
             return new OkObjectResult(JokeObject);
         }
 
-        [HttpGet("")]
+        [HttpGet]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(JokeDTO))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetRandomJoke()
         {
-            _logger.LogInformation("Random joke request from {}", "x");
-            JokeDTO JokeObject = this._jokeService.GetRandomJoke();
+            _logger.LogInformation("Random joke request from");
+            var isMature = HttpContext.User.IsInRole("DirtyJoker");
+            JokeDTO JokeObject = this._jokeService.GetRandomJoke(isMature);
             if(JokeObject == null)
             {
                 return NotFound();
@@ -48,6 +51,7 @@ namespace JokeOfTheDay.Controllers
         }
 
         [HttpPost]
+        [Authorize("Admins")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(JokeDTO))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateJoke([FromBody] JokeDTO JokeDTO)

@@ -1,19 +1,18 @@
-//USED BACKENDLESS LOCAL DEBUG
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SessionComponent } from './session.component';
+import { LogoutButtonComponent } from './logout-button.component';
 
-describe('SessionComponent', () => {
-  let component: SessionComponent;
-  let fixture: ComponentFixture<SessionComponent>;
+describe('LogoutButtonComponent', () => {
+  let component: LogoutButtonComponent;
+  let fixture: ComponentFixture<LogoutButtonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SessionComponent ]
+      declarations: [ LogoutButtonComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SessionComponent);
+    fixture = TestBed.createComponent(LogoutButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

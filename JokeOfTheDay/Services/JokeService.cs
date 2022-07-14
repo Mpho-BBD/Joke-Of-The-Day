@@ -28,9 +28,9 @@ namespace JokeOfTheDay.Services
             this.jokeRepository.createJoke(Joke);
         }
 
-        public JokeDTO GetRandomJoke()
+        public JokeDTO GetRandomJoke(bool isMature)
         {
-            Joke JokeInstance = this.jokeRepository.getRandomJoke();
+            Joke JokeInstance = this.jokeRepository.getRandomJoke(isMature);
             return mapper.Map<JokeDTO>(JokeInstance);
         }
 

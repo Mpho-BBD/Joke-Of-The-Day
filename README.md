@@ -117,7 +117,8 @@ If you wish to test out the code and run the DB instance, please follow the inst
 * C# ASP.NET Core 6.0
 
 ### Running the Application:
-...
+
+Please refer to the individual items in their respective folders.
 
 <!-- MEET THE TEAM -->
 ## Development Team

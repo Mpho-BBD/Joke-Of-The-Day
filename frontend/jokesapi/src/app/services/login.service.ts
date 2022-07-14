@@ -22,7 +22,7 @@ export class LoginService {
     } else if (environment.development) {
       window.location.href = environment.devURL + loginEndpoint
     } else {
-      window.location.href = "https://jokesapi.auth.eu-west-1.amazoncognito.com/oauth2/authorize?client_id=632uqqj15rj2j2u3mhm38qook2&response_type=code&redirect_uri=http://localhost:4200"
+      window.location.href = "https://jokesapi.auth.eu-west-1.amazoncognito.com/oauth2/authorize?client_id=632uqqj15rj2j2u3mhm38qook2&response_type=code&redirect_uri=http://localhost:4200/session"
     }
   }
 

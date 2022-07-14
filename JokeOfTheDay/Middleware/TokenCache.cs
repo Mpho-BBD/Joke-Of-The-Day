@@ -43,7 +43,7 @@ namespace JokeOfTheDay.Middleware
             request.AddParameter("grant_type", "authorization_code");
             request.AddParameter("code", token);
             request.AddParameter("client_id", secrets.client_id);
-            request.AddParameter("redirect_uri", "http://localhost:4200/session");
+            request.AddParameter("redirect_uri", secrets.redirect_url);
             request.AddParameter("scope", "openid");
             request.AddParameter("client_secret", secrets.client_secret);
             RestResponse response = client.Execute(request);

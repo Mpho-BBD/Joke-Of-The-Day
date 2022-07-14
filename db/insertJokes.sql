@@ -2,7 +2,7 @@ INSERT INTO Joke (content, inappropriate) VALUES
   ('Why do Java programmers wear glasses? Because they can''t see sharp.', 0),
   ('Why did the chicken cross the road? To get to the other side.', 0),
   ('A dyslexic man walks into a bra...', 0),
-  ('What is the difference between a duck and a goat? One mucks around in a fountain and the other fucks around on a mountain.',1)
+  ('What is the difference between a duck and a goat? One mucks around in a fountain and the other fucks around on a mountain.',1),
   ('Once you''ve seen one shopping center, you''ve seen the mall.', 0),
   ('I was up all night wondering where the sun went, but then it dawned on me.', 0),
   ('When my son told me to stop impersonating a flamingo, I had to put my foot down.', 0),
@@ -12,7 +12,16 @@ INSERT INTO Joke (content, inappropriate) VALUES
   ('Why did the computer show up late for work? It had a hard drive.', 0),
   ('What''s the difference between a  poorly dressed man on a unicycle and a well-dressed man on a bicycle? Attire.', 0),
   ('I''m a big fan of whiteboards. I find them quite re-markable.', 0),
-  ('I was going to make myself a belt made out of watches, but then I realized it would be a waist of time.', 0);
+  ('I was going to make myself a belt made out of watches, but then I realized it would be a waist of time.', 0),
+  ('Any computer can be a laptop if you''re brave enough', 0),
+  ('It''s sad that a family can be torn apart by something as simple as wild dogs.', 0),
+  ('Before I criticize a man, I like to walk a mile in his shoes. That way, when I do criticize him, I''m a mile away and I have his shoes.', 0),
+  ('Why don''t physicists do threesomes? They can''t solve the three-body problem.',1),
+  ('Rice is great when you''re hungry and you want 2,000 of something.', 0),
+  ('Outside of a dog, a book is a man''s best friend. Inside of a dog, it''s too dark to read.', 0),
+  ('A Freudian slip is when you say one thing but mean your mother.', 0),
+  ('I asked my North Korean friend how it was there, he said he couldn''t complain.', 0),
+  ('"I''m sorry" and "I apologize" mean the same thing, except when you''re at a funeral.', 0);
 
 INSERT INTO JokeOfTheDay (dayDate, jokeId) VALUES
   ('2022-07-13', 1),
